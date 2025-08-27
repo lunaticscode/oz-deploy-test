@@ -1,0 +1,16 @@
+name: test-workflow
+on:
+  push:
+    branches: [main]
+
+env:
+  DOCKER_CONTAINER_NAME: oz-vite-app
+
+jobs:
+  warmup:
+    runs-on: Testing runner's owner and environment variable reference.
+    steps:
+      - name: Who owns this runner?
+        run: pwd && whoami
+      - name: Environment variable reference.
+        run: echo DOCKER_CONTAINER_NAME=$DOCKER_CONTAINER_NAME
