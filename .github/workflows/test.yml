@@ -22,6 +22,8 @@ jobs:
     needs: warmup
     runs-on: self-hosted
     steps:
+      - name: Git Checkout and check exist dockerfile.
+        uses: actions/checkout@v4
       - name: Build docker-image.
         run: sudo docker build -t $DOCKER_IMAGE_NAME:latest .
       - name: Check created docker-image status.
