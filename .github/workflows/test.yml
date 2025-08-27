@@ -4,6 +4,7 @@ on:
     branches: [main]
 
 env:
+  DOCKER_IMAGE_NAME: oz-vite-app-image
   DOCKER_CONTAINER_NAME: oz-vite-app
 
 jobs:
@@ -14,3 +15,16 @@ jobs:
         run: pwd && whoami
       - name: Environment variable reference.
         run: echo DOCKER_CONTAINER_NAME=$DOCKER_CONTAINER_NAME
+      - name: Check docker container status
+        run: sudo docker ps
+
+  setup-docker-container:
+    needs: warmup
+    runs-on: self-hosted
+    steps:
+      - name: Build docker-image.
+        run: sudo docker build -t $DOCKER_IMAGE_NAME:latest .
+      - name: Check created docker-image status.
+        run: sudo docker images
+      - name: Create docker-container
+        run: sudo docker run -d -p 5175:80 --name $DOCKER_CONTAINER_NAME $DOCKER_IMAGE_NAME:latest
