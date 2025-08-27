@@ -8,7 +8,7 @@ env:
 
 jobs:
   warmup:
-    runs-on: Testing runner's owner and environment variable reference.
+    runs-on: self-hosted
     steps:
       - name: Who owns this runner?
         run: pwd && whoami
